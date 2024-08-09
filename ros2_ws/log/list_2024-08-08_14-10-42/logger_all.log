@@ -1,0 +1,50 @@
+[0.172s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'list', '-p', '--base-paths', '/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws']
+[0.172s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='list', build_base='build', ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], topological_order=False, names_only=False, paths_only=True, topological_graph=False, topological_graph_dot=False, topological_graph_density=False, topological_graph_legend=False, topological_graph_dot_cluster=False, topological_graph_dot_include_skipped=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x793a6534ec20>, verb_extension=<colcon_package_information.verb.list.ListVerb object at 0x793a6534dc60>, main=<bound method ListVerb.main of <colcon_package_information.verb.list.ListVerb object at 0x793a6534dc60>>, mixin_verb=('list',))
+[0.440s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.440s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.440s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.440s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.440s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.441s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws'
+[0.441s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws) by extensions ['ignore', 'ignore_ament_install']
+[0.441s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws) by extension 'ignore'
+[0.441s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws) by extension 'ignore_ament_install'
+[0.441s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws) by extensions ['colcon_pkg']
+[0.441s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws) by extension 'colcon_pkg'
+[0.441s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws) by extensions ['colcon_meta']
+[0.441s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws) by extension 'colcon_meta'
+[0.441s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws) by extensions ['ros']
+[0.441s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws) by extension 'ros'
+[0.476s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws) by extensions ['cmake', 'python']
+[0.476s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws) by extension 'cmake'
+[0.476s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws) by extension 'python'
+[0.477s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws) by extensions ['python_setup_py']
+[0.477s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws) by extension 'python_setup_py'
+[0.477s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/log) by extensions ['ignore', 'ignore_ament_install']
+[0.478s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/log) by extension 'ignore'
+[0.478s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/log) ignored
+[0.479s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/src) by extensions ['ignore', 'ignore_ament_install']
+[0.480s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/src) by extension 'ignore'
+[0.480s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/src) by extension 'ignore_ament_install'
+[0.480s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/src) by extensions ['colcon_pkg']
+[0.480s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/src) by extension 'colcon_pkg'
+[0.480s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/src) by extensions ['colcon_meta']
+[0.480s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/src) by extension 'colcon_meta'
+[0.480s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/src) by extensions ['ros']
+[0.480s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/src) by extension 'ros'
+[0.480s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/src) by extensions ['cmake', 'python']
+[0.481s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/src) by extension 'cmake'
+[0.481s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/src) by extension 'python'
+[0.481s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/src) by extensions ['python_setup_py']
+[0.481s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/src) by extension 'python_setup_py'
+[0.481s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/src/underwater_rover) by extensions ['ignore', 'ignore_ament_install']
+[0.481s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/src/underwater_rover) by extension 'ignore'
+[0.481s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/src/underwater_rover) by extension 'ignore_ament_install'
+[0.481s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/src/underwater_rover) by extensions ['colcon_pkg']
+[0.481s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/src/underwater_rover) by extension 'colcon_pkg'
+[0.481s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/src/underwater_rover) by extensions ['colcon_meta']
+[0.481s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/src/underwater_rover) by extension 'colcon_meta'
+[0.481s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/src/underwater_rover) by extensions ['ros']
+[0.481s] Level 1:colcon.colcon_core.package_identification:_identify(/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/src/underwater_rover) by extension 'ros'
+[0.499s] DEBUG:colcon.colcon_core.package_identification:Package '/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/src/underwater_rover' with type 'ros.ament_python' and name 'underwater_rover'
+[0.506s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
