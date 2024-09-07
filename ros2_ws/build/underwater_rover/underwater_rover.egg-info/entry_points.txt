@@ -1,0 +1,3 @@
+[console_scripts]
+test_node = underwater_rover.test_node:main
+
