@@ -14,7 +14,7 @@ from std_msgs.msg import Int32, Int32MultiArray
 class ExamplePublisherNode(Node):
     def __init__(self):
         # TODO: Replace "example_publisher_node" with the name of the publisher node
-        super().__init__('example_publisher_node')
+        super().__init__('AccelerationPublish')
 
 
         # Creates a publisher attached to this node and posting to "example_topic"
@@ -23,7 +23,7 @@ class ExamplePublisherNode(Node):
             float32,
             
             # TODO: Replace "example_topic" with the name of the topic
-            'example_topic',
+            'Acceleration',
             
             # NOTE: This parameter sets how many messages are to be sent
             10,
@@ -44,8 +44,8 @@ class ExamplePublisherNode(Node):
         #msg.data = 42
 
         #Acceleration - Float value
-        #msg = float()
-        #mgs.data = 42
+        msg = float32()
+        mgs.data = 42
 
         #Angular Velocity - float value
 
@@ -60,9 +60,14 @@ def main(args=None):
     rclpy.init(args=args)
 
     # Initialize the node
-    node = ExamplePublisherNode()
+    node = AccelerationPublish()
 
     # Start up the node
+    i = 1
+    while i = 1:
+        print(1)
+    else:
+
     # NOTE: This line will block until a shutdown command is received (like Ctrl + C)
     rclpy.spin(node)
 
