@@ -1,0 +1,41 @@
+running egg_info
+creating ../../build/underwater_rover/underwater_rover.egg-info
+writing ../../build/underwater_rover/underwater_rover.egg-info/PKG-INFO
+writing dependency_links to ../../build/underwater_rover/underwater_rover.egg-info/dependency_links.txt
+writing entry points to ../../build/underwater_rover/underwater_rover.egg-info/entry_points.txt
+writing requirements to ../../build/underwater_rover/underwater_rover.egg-info/requires.txt
+writing top-level names to ../../build/underwater_rover/underwater_rover.egg-info/top_level.txt
+writing manifest file '../../build/underwater_rover/underwater_rover.egg-info/SOURCES.txt'
+reading manifest file '../../build/underwater_rover/underwater_rover.egg-info/SOURCES.txt'
+writing manifest file '../../build/underwater_rover/underwater_rover.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/build/underwater_rover/build
+creating /home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/build/underwater_rover/build/lib
+creating /home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/build/underwater_rover/build/lib/underwater_rover
+copying underwater_rover/__init__.py -> /home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/build/underwater_rover/build/lib/underwater_rover
+copying underwater_rover/navigator_reader.py -> /home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/build/underwater_rover/build/lib/underwater_rover
+copying underwater_rover/thruster_controller.py -> /home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/build/underwater_rover/build/lib/underwater_rover
+copying underwater_rover/test_node.py -> /home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/build/underwater_rover/build/lib/underwater_rover
+running install
+running install_lib
+creating /home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/install/underwater_rover/lib/python3.10/site-packages/underwater_rover
+copying /home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/build/underwater_rover/build/lib/underwater_rover/__init__.py -> /home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/install/underwater_rover/lib/python3.10/site-packages/underwater_rover
+copying /home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/build/underwater_rover/build/lib/underwater_rover/navigator_reader.py -> /home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/install/underwater_rover/lib/python3.10/site-packages/underwater_rover
+copying /home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/build/underwater_rover/build/lib/underwater_rover/thruster_controller.py -> /home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/install/underwater_rover/lib/python3.10/site-packages/underwater_rover
+copying /home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/build/underwater_rover/build/lib/underwater_rover/test_node.py -> /home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/install/underwater_rover/lib/python3.10/site-packages/underwater_rover
+byte-compiling /home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/install/underwater_rover/lib/python3.10/site-packages/underwater_rover/__init__.py to __init__.cpython-310.pyc
+byte-compiling /home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/install/underwater_rover/lib/python3.10/site-packages/underwater_rover/navigator_reader.py to navigator_reader.cpython-310.pyc
+byte-compiling /home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/install/underwater_rover/lib/python3.10/site-packages/underwater_rover/thruster_controller.py to thruster_controller.cpython-310.pyc
+byte-compiling /home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/install/underwater_rover/lib/python3.10/site-packages/underwater_rover/test_node.py to test_node.cpython-310.pyc
+running install_data
+creating /home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/install/underwater_rover/share/ament_index
+creating /home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/install/underwater_rover/share/ament_index/resource_index
+creating /home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/install/underwater_rover/share/ament_index/resource_index/packages
+copying resource/underwater_rover -> /home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/install/underwater_rover/share/ament_index/resource_index/packages
+copying package.xml -> /home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/install/underwater_rover/share/underwater_rover
+running install_egg_info
+Copying ../../build/underwater_rover/underwater_rover.egg-info to /home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/install/underwater_rover/lib/python3.10/site-packages/underwater_rover-0.0.0-py3.10.egg-info
+running install_scripts
+Installing test_node script to /home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/install/underwater_rover/lib/underwater_rover
+writing list of installed files to '/home/basira/Documents/AIME/MATE-ROV-AIME-/ros2_ws/build/underwater_rover/install.log'

@@ -1,0 +1,6 @@
+source;share/underwater_rover/hook/pythonpath.ps1
+source;share/underwater_rover/hook/pythonpath.dsv
+source;share/underwater_rover/hook/pythonpath.sh
+source;share/underwater_rover/hook/ament_prefix_path.ps1
+source;share/underwater_rover/hook/ament_prefix_path.dsv
+source;share/underwater_rover/hook/ament_prefix_path.sh

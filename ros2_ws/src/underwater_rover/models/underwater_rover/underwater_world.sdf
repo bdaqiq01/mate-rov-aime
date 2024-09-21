@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+
+<sdf version="1.7">
+  <world name="underwater_world">
+    <physics name="default_physics" type="ode">
+      <gravity>0 0 -9.8</gravity>
+      <max_step_size>0.01</max_step_size>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <include>
+      <uri>model://underwater_rover</uri>
+    </include>
+  </world>
+</sdf>

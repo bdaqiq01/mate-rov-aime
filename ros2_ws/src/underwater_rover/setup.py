@@ -20,6 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            "test_node = underwater_rover.test_node:main"
         ],
     },
 )
