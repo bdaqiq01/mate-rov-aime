@@ -11,6 +11,11 @@ joysticks = [pygame.joystick.Joystick(i) for i in range(pygame.joystick.get_coun
 for joystick in joysticks: #Recieves name of controller
     print(joystick.get_name())
 
+# First float: Button press
+# X: 0, A: 1, B: 2, Y: 3, LB: 4, RB: 5, LT: 6, RT: 7, BACK: 8, START: 9,
+# Second float: JoystickAxis -1 to 1
+# Third float: Dpad left -1, right 1
+# Fourth float: Dpad up 1, down -1
 data_array = [0, 0, 0, 0]       # [buttonPress, JoystickAxis, DpadLeftRight, DpadUpDown]
 
 while True:
