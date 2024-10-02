@@ -90,13 +90,13 @@ class thruster_controller_node(Node):
     def on_Controller_data_received(self, msg):
         self.get_logger().info(f'Received data: {msg.data}')
 
-        if self.msg.data[2] == -1:
+        if self.msg.data[5] == -1:
             self.go_left()
-        elif self.msg.data[2] == 1:
+        elif self.msg.data[5] == 1:
             self.go_right()
-        elif self.msg.data[3] == -1:
+        elif self.msg.data[6] == -1:
             self.go_back()
-        elif self.msg.data[3] == 1:
+        elif self.msg.data[6] == 1:
             self.go_forward()        
 
 # Initializes the Navigator module with default settings.
