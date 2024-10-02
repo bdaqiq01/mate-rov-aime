@@ -16,7 +16,7 @@ for joystick in joysticks: #Recieves name of controller
 # Second float: JoystickAxis -1 to 1
 # Third float: Dpad left -1, right 1
 # Fourth float: Dpad up 1, down -1
-data_array = [0, 0, 0, 0]       # [buttonPress, JoystickAxis, DpadLeftRight, DpadUpDown]
+data_array = [0, 0, 0, 0, 0, 0, 0]       # [buttonPress, LeftJoyX, LeftJoyY, RightJoyX, RightJoyY, DpadX, DpadY]
 
 while True:
 
@@ -30,13 +30,25 @@ while True:
             data_array[0] = float(0)
 
         if event.type == JOYAXISMOTION:
+            if event.axis == 0:
+                data_array[1] = event.value
+            elif event.axis == 1:
+                data_array[2] = -event.value
+            elif event.axis == 2:
+                data_array[3] = event.value
+            elif event.axis == 3:
+                data_array[4] = -event.value
+            else:
+                data_array[1] = 0
+                data_array[2] = 0
+                data_array[3] = 0
+                data_array[4] = 0
 
-            data_array[1] = float(event.value)         #'value' is a port of the JOYAXISMOTION class
 
         if event.type == JOYHATMOTION:
 
-            data_array[2] = float(event.value[0])       #'value' is a port of the JOYHATMOTION class
-            data_array[3] = float(event.value[1])
+            data_array[5] = float(event.value[0])       #'value' is a port of the JOYHATMOTION class
+            data_array[6] = float(event.value[1])
 
         if event.type == QUIT:
             pygame.quit()
