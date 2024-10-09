@@ -2,6 +2,7 @@
 import rclpy
 from rclpy.node import Node
 
+
 # Importing necessary ros data types 
 from std.msgs.msg import Float32Array
 from std.msgs.msg import Bool32
@@ -20,7 +21,7 @@ class servo_claw_1(Node): # Creates a node
     super().__init__('servoData')
     self.subscriber_handle = self.create_subscription ( #creates the subscriber 
      Float32Array, #the data type the information is 
-     'controller_input', #defines the topic the topic
+     'controller_data', #defines the topic the topic
      self.on_subscriber_data_received,
      1, #number of times the message is sent 
     )
@@ -51,19 +52,19 @@ class servo_claw_1(Node): # Creates a node
   
   #This is where your logic goes
   def on_subscriber_data_received(self, msg):
-
+    self.x_button = msg[0]
     # Toggles the position of the claw to being either open of closed with a push of a button
-    if self.x_button == 0 & self.x_check == True:
+    if self.x_button != True & self.x_check == True:
         
         pass
-    if self.x_button == 0 & self.x_check == False:
+    if self.x_button != True & self.x_check == False:
         
         pass
-    if self.x_button == 1 & self.x_check == True:
+    if self.x_button == True & self.x_check == True:
         
         self.set_sero_pos(self.is_left_claw_close)
         self.x_check = False
-    if self.x_button == 1 & self.x_check == False:
+    if self.x_button == True & self.x_check == False:
         
         self.set_sero_pos(self.is_left_claw_open)
         self.x_check = True
