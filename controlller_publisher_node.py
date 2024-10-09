@@ -18,10 +18,19 @@ class controller_node(Node):
 
 
         # Creates a publisher attached to this node and posting to "example_topic"
-        self.publisher_handle = self.create_publisher(
+        self.publisher_controller = self.create_publisher(
             Float32MultiArray,
             
             'controller_data',
+            
+            10,
+        )
+
+        #Creates a publisher for servo button
+        self.publisher_servo = self.create_publisher(
+            bool,
+            
+            'servo_data',
             
             10,
         )
@@ -71,11 +80,23 @@ class controller_node(Node):
             self.get_logger().info(data_array) 
 
         # Create the message packet
-        msg = Float32MultiArray()
-        msg.data = data_array
+        msg1 = Float32MultiArray()
+        msg1.data = data_array
 
         # Publish it on the topic "example_topic"
-        self.publisher_handle.publish(msg)
+        self.publisher_controller.publish(msg1)
+
+        # Create the message packet
+        msg2 = bool
+        if(msg1[0] == 1):
+            msg2.data = True
+        else:
+            msg2.data = False
+
+        self.get_logger().info(msg2)
+        
+        # Publish it on the topic "servo_data"
+        self.publisher_servo.publish(msg2)
 
 
 def main(args=None):
