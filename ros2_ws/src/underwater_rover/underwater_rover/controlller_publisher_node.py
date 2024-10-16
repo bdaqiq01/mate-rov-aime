@@ -50,8 +50,8 @@ class controller_node(Node):
         for event in pygame.event.get(): #Accesses event class that reads controller interactions
 
             if event.type == JOYBUTTONDOWN:
-
-                data_array[0] = float(event.button) #'button' is a part of the JOYBUTTONDOWN class
+                # added 1 to event.button so that x will register as 1 instead of 0
+                data_array[0] = float(event.button + 1) #'button' is a part of the JOYBUTTONDOWN class
 
             if event.type == JOYBUTTONUP:
                 data_array[0] = float(0)
