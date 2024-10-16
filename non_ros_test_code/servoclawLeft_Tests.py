@@ -23,7 +23,7 @@ current_angle = int()
 #current_angle = map_range(pwm,500,2500,0,180)
 
  # This checks the state of the x_button and the changes the position of the servo claw accordingly 
-def check_test(x_button: bool):
+def check_test(x_button: bool, x_check: bool):
    if x_button == False & x_check == True:
      servo_state = servo_state
      print("same")
@@ -40,8 +40,8 @@ def check_test(x_button: bool):
      print("open")
 
 
-check_test(False)
-check_test(False)
-check_test(True)
-check_test(True)
+check_test(False, True)
+check_test(False, False)
+check_test(True, True)
+check_test(True, False)
 
