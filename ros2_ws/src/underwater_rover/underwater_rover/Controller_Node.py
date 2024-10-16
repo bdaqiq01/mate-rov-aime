@@ -12,7 +12,7 @@ for joystick in joysticks: #Recieves name of controller
     print(joystick.get_name())
 
 # First float: Button press
-# X: 0, A: 1, B: 2, Y: 3, LB: 4, RB: 5, LT: 6, RT: 7, BACK: 8, START: 9,
+# X: 1, A: 2, B: 3, Y: 4, LB: 5, RB: 6, LT: 7, RT: 8, BACK: 9, START: 10, L JOY 11, R JOY 12
 # Second float: JoystickAxis -1 to 1
 # Third float: Dpad left -1, right 1
 # Fourth float: Dpad up 1, down -1
@@ -23,8 +23,9 @@ while True:
     for event in pygame.event.get(): #Accesses event class that reads controller interactions
 
         if event.type == JOYBUTTONDOWN:
-
-            data_array[0] = float(event.button) #'button' is a part of the JOYBUTTONDOWN class
+            # added 1 to event.button so that x will register as 1 instead of 0
+            data_array[0] = float(event.button + 1) #'button' is a part of the JOYBUTTONDOWN class
+            
 
         if event.type == JOYBUTTONUP:
             data_array[0] = float(0)
