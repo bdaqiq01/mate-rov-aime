@@ -1,0 +1,58 @@
+# Author: Anthony Chavez
+
+import sys
+import pygame
+from pygame.locals import *
+
+pygame.init() #initializes Pygame
+pygame.joystick.init() #Initializes joystick module
+joysticks = [pygame.joystick.Joystick(i) for i in range(pygame.joystick.get_count())] #Initializes an array of joysticks detected
+
+for joystick in joysticks: #Recieves name of controller
+    print(joystick.get_name())
+
+# First float: Button press
+# X: 1, A: 2, B: 3, Y: 4, LB: 5, RB: 6, LT: 7, RT: 8, BACK: 9, START: 10, L JOY 11, R JOY 12
+# Second float: JoystickAxis -1 to 1
+# Third float: Dpad left -1, right 1
+# Fourth float: Dpad up 1, down -1
+data_array = [0, 0, 0, 0, 0, 0, 0]       # [buttonPress, LeftJoyX, LeftJoyY, RightJoyX, RightJoyY, DpadX, DpadY]
+
+while True:
+
+    for event in pygame.event.get(): #Accesses event class that reads controller interactions
+
+        if event.type == JOYBUTTONDOWN:
+            # added 1 to event.button so that x will register as 1 instead of 0
+            data_array[0] = float(event.button + 1) #'button' is a part of the JOYBUTTONDOWN class
+            
+
+        if event.type == JOYBUTTONUP:
+            data_array[0] = float(0)
+
+        if event.type == JOYAXISMOTION:
+            if event.axis == 0:
+                data_array[1] = event.value
+            elif event.axis == 1:
+                data_array[2] = -event.value
+            elif event.axis == 2:
+                data_array[3] = event.value
+            elif event.axis == 3:
+                data_array[4] = -event.value
+            else:
+                data_array[1] = 0
+                data_array[2] = 0
+                data_array[3] = 0
+                data_array[4] = 0
+
+
+        if event.type == JOYHATMOTION:
+
+            data_array[5] = float(event.value[0])       #'value' is a port of the JOYHATMOTION class
+            data_array[6] = float(event.value[1])
+
+        if event.type == QUIT:
+            pygame.quit()
+            sys.exit()
+
+        print(data_array) 
