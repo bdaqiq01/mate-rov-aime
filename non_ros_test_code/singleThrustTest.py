@@ -35,13 +35,14 @@ def off():
 def main(args=None):
     # Example control logic for a single thruster
     while True:
-        # Use msg data to decide the direction, assuming msg is being updated externally
-        if msg.data[5] == 1:  # Example condition, adjust based on input method
-            go_up()
-        elif msg.data[5] == -1:
-            go_down()
-        else:
-            off()
+        print("forward")
+        go_up()
+        time.sleep(3)
+        print("back")
+        go_down()
+        print("Done")
+        time.sleep(3)
+        off()
 
 # Only run the 'main()' code when calling this script directly
 if __name__ == '__main__':
