@@ -11,6 +11,7 @@ import numpy as np
 from std.msgs.msg import Float32Array
 from std.msgs.msg import Bool32
  
+navigator.init()
 
 #Converts one range of numbers to a different range of numbers given the input of x 
 #Thanks to Arduino for providing the formula
@@ -48,14 +49,15 @@ class servo_claw_1(Node): # Creates a node
     
    # Changes the servo position with a degree value
   def set_sero_pos(self, deg):
-    pass
     pwm = self.deg_to_pwm(deg)
-    #TO DO: write to servo
+    navigator.set_pwm_channel_value(PwmChannel.Ch8, pwm)
   
 
   
   #This is where your logic goes
   def on_subscriber_data_received(self, msg):
+    navigator.set_pwm_freq_hz(1200)
+    navigator.set_pwm_enable(True)
     self.x_button = msg[0]
     # Toggles the position of the claw to being either open of closed with a push of a button
     if self.x_button != True & self.x_check == True:
