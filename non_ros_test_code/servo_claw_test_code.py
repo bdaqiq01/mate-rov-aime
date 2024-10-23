@@ -1,16 +1,10 @@
-#Imports 
-import rclpy
-from rclpy.node import Node
-
 # Library imports
 import bluerobotics_navigator as navigator
 from bluerobotics_navigator import PwmChannel
 import numpy as np
-
-# Importing necessary ros data types 
-from std.msgs.msg import Float32Array
-from std.msgs.msg import Bool32
+import time
  
+navigator.init()
 
 #Converts one range of numbers to a different range of numbers given the input of x 
 #Thanks to Arduino for providing the formula
@@ -19,15 +13,14 @@ def map_range(x, in_min, in_max, out_min, out_max):
 
  
  
-class servo_claw_1(Node): # Creates a node
-  
+class servo_claw_1(): # Creates a node
   def __init__(self): #Initializes the node 
-    super().__init__('servoData')
-    self.subscriber_handle = self.create_subscription ( #creates the subscriber 
-     Float32Array, #the data type the information is 
-     'controller_data', #defines the topic the topic
-     self.on_subscriber_data_received,
-     1, #number of times the message is sent 
+    # super().__init__('servoData')
+    # self.subscriber_handle = self.create_subscription ( #creates the subscriber 
+    #  Float32Array, #the data type the information is 
+    #  'controller_data', #defines the topic the topic
+    #  self.on_subscriber_data_received,
+    #  1, #number of times the message is sent 
     )
     
     #Set of variables to used to decide the position of a servo based on a button 
@@ -35,8 +28,8 @@ class servo_claw_1(Node): # Creates a node
     self.x_button = 0
     self.x_check = False
     # The angle of the open of closed state of the claw set in degrees
-    self.is_left_claw_open = 0
-    self.is_left_claw_closed = 180
+    self.left_claw_open = 0
+    self.left_claw_closed = 180
    
  #takes a pwm value and turns it into degrees   
   def pwm_to_deg(self, pwm):
@@ -48,15 +41,15 @@ class servo_claw_1(Node): # Creates a node
     
    # Changes the servo position with a degree value
   def set_sero_pos(self, deg):
-    pass
     pwm = self.deg_to_pwm(deg)
-    #TO DO: write to servo
-  
+    navigator.set_pwm_channel_value(PwmChannel.Ch8, pwm)
 
   
   #This is where your logic goes
-  def on_subscriber_data_received(self, msg):
-    self.x_button = msg[0]
+  def on_subscriber_data_received(self, x_pressed):
+    navigator.set_pwm_freq_hz(1200)
+    navigator.set_pwm_enable(True)
+    self.x_button = x_pressed
     # Toggles the position of the claw to being either open of closed with a push of a button
     if self.x_button != True & self.x_check == True:
         
@@ -66,22 +59,24 @@ class servo_claw_1(Node): # Creates a node
         pass
     if self.x_button == True & self.x_check == True:
         
-        self.set_sero_pos(self.is_left_claw_close)
+        self.set_sero_pos(self.left_claw_close)
         self.x_check = False
     if self.x_button == True & self.x_check == False:
-        
-        self.set_sero_pos(self.is_left_claw_open)
+        self.set_sero_pos(self.left_claw_open)
         self.x_check = True
 
-    self.get_logger().info(f'Received data: {msg.data}')
+    print(f'Received data: {msg.data}')
 
 def main(args=None):
-  rclpy.init(args=args)
-  
   node = servo_claw_1()
-  rclpy.spin(node)
-  node.destroy_node()
-  rclpy.shutdown()
+
+  node.on_subscriber_data_received(False)
+  time.sleep(2)
+
+  node.on_subscriber_data_received(True)
+  time.sleep(2)
+
+  node.on_subscriber_data_received(False)
 
 if __name__ == '__main__':
   main()
