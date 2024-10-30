@@ -3,8 +3,8 @@
 import bluerobotics_navigator as navigator 
 import tsys01
 
-# importing the data type
-from std_msgs.msg import Float32
+# importing Time files
+import time
 
 # initalizing Navigator 
 navigator.init()
@@ -43,10 +43,8 @@ class test_temperature_sensor():
             exit(1)
         print("The temperature reading has been stored in temp_reading")
         
-        # setting the message type and sets the data for the message equal to the reading
-        msg = Float32()
-        msg.data = float(temp_reading)
-        print("The temperature is that was read is " + msg.data)
+        # printing out the temperature reading
+        print("The temperature is that was read is " + float(temp_reading))
 
     # function for the timer
     # this is probably not needed to run an check if the code is ran properly
@@ -54,4 +52,19 @@ class test_temperature_sensor():
         time_period = 1/10
         self.timer = self.create.timer(time_period, self.msg.data)
         
+def main():
+    print("starting to run the code")
+    test_temperature_sensor.sensor_active_duty()
+    time.sleep(1)
+    print("the first duty cycle has ended")
     
+    print("starting second cycle")
+    print("starting the second cycle")
+    test_temperature_sensor.sensor_active_duty()
+    time.sleep(5)
+    print("Ending the program")
+    
+    exit(1)
+        
+if __name__ == "__main__":
+    main()
