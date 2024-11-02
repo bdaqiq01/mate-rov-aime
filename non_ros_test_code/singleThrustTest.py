@@ -23,10 +23,10 @@ def set_pwm_channel_1(value):
 
 # Movement functions that only affect the thruster on channel 1
 def go_up():
-    set_pwm_channel_1(0.0)
+    set_pwm_channel_1(0.7)
 
 def go_down():
-    set_pwm_channel_1(-0.3)
+    set_pwm_channel_1(0.2)
 
 # Turns the thruster off
 def off():
@@ -36,7 +36,7 @@ def main(args=None):
     # Example control logic for a single thruster
     while True:
         print("forward")
-        
+        go_up()
         time.sleep(2)
         print("back")
         go_down()
