@@ -6,9 +6,12 @@
 import time
 import bluerobotics_navigator as navigator
 from bluerobotics_navigator import PwmChannel
+from inti_rov_thruster_esc_test import init_rov_thrusters
 
 # Initializes the Navigator module with default settings.
 navigator.init()
+
+# init_rov_thrusters(pwm_freq= 200, channels = [PwmChannel.Ch1], run_full_init_cycle=True)
 # Setup for PWM Channel 1
 navigator.set_pwm_freq_hz(1000)
 # Enables the PWM chip
