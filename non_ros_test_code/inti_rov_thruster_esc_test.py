@@ -25,8 +25,6 @@ ALL_PWM_CHANNELS = [
 
 def init_rov_thrusters(pwm_freq, channels, run_full_init_cycle = False):
     '''
-    NOTE: UNTESTED!!
-    
     Initializes the ROV's ESCs for the thrusters. This involves setting specified thrusters to the
     neutral PWM value (1.5 ms) for some chunk of time to ensure they all properly initialize.
 
@@ -88,8 +86,13 @@ def init_rov_thrusters(pwm_freq, channels, run_full_init_cycle = False):
     PWM_LOW_DURATION_MS     = 1.1 # milliseconds
     PWM_NEUTRAL_DURATION_MS = 1.5 # milliseconds
     PWM_HIGH_DURATION_MS    = 1.9 # milliseconds
-    DELAY_EACH_STEP         = 8.0 # seconds
+    DELAY_EACH_STEP         = 4.0 # seconds
+    # default 8.0 seconds
 
+    # Set PWM channels to neutral
+    print('  Initializing ESCs: Setting PWM Channels to NEUTRAL...')
+    navigator.set_pwm_channels_value(channels, calc_pwm_value(PWM_NEUTRAL_DURATION_MS))
+    time.sleep(DELAY_EACH_STEP) # NOTE: try setting it for 8.0
   
     if run_full_init_cycle:
         # Set PWM channels to min range
@@ -106,11 +109,24 @@ def init_rov_thrusters(pwm_freq, channels, run_full_init_cycle = False):
         print('  Initializing ESCs: Setting PWM Channels to NEUTRAL...')
         navigator.set_pwm_channels_value(channels, calc_pwm_value(PWM_NEUTRAL_DURATION_MS))
         time.sleep(DELAY_EACH_STEP)
-    else:
-        # Set PWM channels to neutral
-        print('  Initializing ESCs: Setting PWM Channels to NEUTRAL...')
-        navigator.set_pwm_channels_value(channels, calc_pwm_value(PWM_NEUTRAL_DURATION_MS))
-        time.sleep(DELAY_EACH_STEP)
+
+
+# calc_pwm_value = lambda duration_on_ms: int(4095 * (duration_on_ms / TOTAL_PERIOD_DURATION_MS))
+def set_pwm_channels(val, channels):
+    pwm_freq = 200
+    TOTAL_PERIOD_DURATION_MS = (1 / pwm_freq) * 1000
+    PWM_LOW_DURATION_MS     = 1.1 # milliseconds
+    PWM_NEUTRAL_DURATION_MS = 1.5 # milliseconds
+    PWM_HIGH_DURATION_MS    = 1.9 # milliseconds
+
+    def map_range(x, in_min, in_max, out_min, out_max):
+        return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
+
+    def calc_pwm_value(duration_on_ms):
+        return int(4095 * (duration_on_ms / TOTAL_PERIOD_DURATION_MS))
+
+    calculated_ms = map_range(val, -1.0, 1.0, PWM_LOW_DURATION_MS, PWM_HIGH_DURATION_MS)
+    navigator.set_pwm_channels_value(channels, calc_pwm_value(calculated_ms))
 
 
 if __name__ == '__main__':

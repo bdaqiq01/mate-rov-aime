@@ -18,8 +18,8 @@ navigator.set_pwm_enable(True)
 magnitude = 0.5
 
 # Sets PWM duty cycle for Channel 1 only
-def set_pwm_channel_1(value):
-    navigator.set_pwm_channels_duty_cycle(PwmChannel.Ch1, value)
+# def set_pwm_channel_1(value):
+#     navigator.set_pwm_channels_duty_cycle(PwmChannel.Ch1, value)
 
 # Movement functions that only affect the thruster on channel 1
 def go_up():
@@ -31,6 +31,15 @@ def go_down():
 # Turns the thruster off
 def off():
     set_pwm_channel_1(0)
+
+
+def map_range(x, in_min, in_max, out_min, out_max):
+  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
+
+calc_pwm_value = lambda duration_on_ms: int(4095 * (duration_on_ms / TOTAL_PERIOD_DURATION_MS))
+def set_pwm_channel(val, channels):
+    calc_ms = map_range(val, -1.0, 1.0, )
+    navigator.set_pwm_channels_value(channels, calc_pwm_value(PWM_LOW_DURATION_MS))
 
 def main(args=None):
     # Example control logic for a single thruster
