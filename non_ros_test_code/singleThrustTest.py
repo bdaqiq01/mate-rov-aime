@@ -6,9 +6,12 @@
 import time
 import bluerobotics_navigator as navigator
 from bluerobotics_navigator import PwmChannel
+from inti_rov_thruster_esc_test import init_rov_thrusters
 
 # Initializes the Navigator module with default settings.
 navigator.init()
+
+# init_rov_thrusters(pwm_freq= 200, channels = [PwmChannel.Ch1], run_full_init_cycle=True)
 # Setup for PWM Channel 1
 navigator.set_pwm_freq_hz(1000)
 # Enables the PWM chip
@@ -23,10 +26,10 @@ def set_pwm_channel_1(value):
 
 # Movement functions that only affect the thruster on channel 1
 def go_up():
-    set_pwm_channel_1(0.0)
+    set_pwm_channel_1(0.7)
 
 def go_down():
-    set_pwm_channel_1(-0.3)
+    set_pwm_channel_1(0.2)
 
 # Turns the thruster off
 def off():
@@ -36,7 +39,7 @@ def main(args=None):
     # Example control logic for a single thruster
     while True:
         print("forward")
-        
+        go_up()
         time.sleep(2)
         print("back")
         go_down()
