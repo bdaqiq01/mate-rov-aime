@@ -20,7 +20,7 @@ class servo_claw_1(): # Creates a node
     #  'controller_data', #defines the topic the topic
     #  self.on_subscriber_data_received,
     #  1, #number of times the message is sent 
-    )
+  
     
     #Set of variables to used to decide the position of a servo based on a button 
     #TO DO: make self.x_button grab indext 0 from the topic controller_input
