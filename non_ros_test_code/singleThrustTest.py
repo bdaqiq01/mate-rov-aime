@@ -15,6 +15,7 @@ ACTIVE_PWM_CHANNELS = [
     PwmChannel.Ch1,
     PwmChannel.Ch2,
     PwmChannel.Ch3,
+    # PwmChannel.Ch4,
 ]
 
 init_rov_thrusters(
