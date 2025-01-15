@@ -3,35 +3,23 @@ import bluerobotics_navigator as navigator
 from bluerobotics_navigator import PwmChannel
 import numpy as np
 import time
- 
+
 navigator.init()
+
 
 #Converts one range of numbers to a different range of numbers given the input of x 
 #Thanks to Arduino for providing the formula
 def map_range(x, in_min, in_max, out_min, out_max):
   return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
- 
- 
+
 class servo_claw_1(): # Creates a node
-  def __init__(self): #Initializes the node 
-    # super().__init__('servoData')
-    # self.subscriber_handle = self.create_subscription ( #creates the subscriber 
-    #  Float32Array, #the data type the information is 
-    #  'controller_data', #defines the topic the topic
-    #  self.on_subscriber_data_received,
-    #  1, #number of times the message is sent 
-    # )
-    
-    #Set of variables to used to decide the position of a servo based on a button 
-    #TO DO: make self.x_button grab indext 0 from the topic controller_input
-    self.x_button = 0
-    self.x_check = False
-    # The angle of the open of closed state of the claw set in degrees
-    self.left_claw_open = 0
-    self.left_claw_closed = 180
-   
- #takes a pwm value and turns it into degrees   
+  self.x_button = 0
+  self.x_check = False
+  
+  self.left_claw_open = 0
+  self.left_claw_closed = 180
+#takes a pwm value and turns it into degrees   
   def pwm_to_deg(self, pwm):
     return map_range(pwm, 500,1200,0,180)
 
@@ -39,9 +27,10 @@ class servo_claw_1(): # Creates a node
   def deg_to_pwm(self, deg):
     return map_range(deg,0,180,500,1200)
     
-   # Changes the servo position with a degree value
+  # Changes the servo position with a degree value
   def set_sero_pos(self, deg):
     pwm = self.deg_to_pwm(deg)
+    ##Sets the pwm  
     navigator.set_pwm_channel_value(PwmChannel.Ch8, pwm)
 
   
@@ -65,7 +54,7 @@ class servo_claw_1(): # Creates a node
         self.set_sero_pos(self.left_claw_open)
         self.x_check = True
 
-    # print(f'Received data: {msg.data}')
+    print(f'Received data: {msg.data}')
 
 def main(args=None):
   node = servo_claw_1()
