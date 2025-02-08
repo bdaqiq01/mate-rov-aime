@@ -15,6 +15,9 @@ ACTIVE_PWM_CHANNELS = [
     PwmChannel.Ch1,
     PwmChannel.Ch2,
     PwmChannel.Ch3,
+    PwmChannel.Ch4,
+    PwmChannel.Ch5,
+    PwmChannel.Ch6
 ]
 
 init_rov_thrusters(
@@ -26,13 +29,16 @@ init_rov_thrusters(
 
 # Movement functions that only affect the thruster on channel 1
 def go_up():
-    set_pwm_channels(0.5, ACTIVE_PWM_CHANNELS)
+    set_pwm_channels(0.5, [PwmChannel.Ch1, PwmChannel.Ch6])
     # navigator.set_pwm_channels_value([PwmChannel.Ch1], calc_pwm_value(1.9))
 
 
 def go_down():
-    set_pwm_channels(-0.5, ACTIVE_PWM_CHANNELS)
+    set_pwm_channels(-0.5, [PwmChannel.Ch2, PwmChannel.Ch5])
     # navigator.set_pwm_channels_value([PwmChannel.Ch1], calc_pwm_value(1.1))
+
+def go_x():
+    set_pwm_channels(-0.5, [PwmChannel.Ch3, PwmChannel.Ch4])
 
 # Turns the thruster off
 def off():
@@ -49,6 +55,10 @@ def main(args=None):
             
             print("back")
             go_down()
+
+            time.sleep(2)
+            print("back")
+            go_x()
             
             print("Done")
             time.sleep(5)
