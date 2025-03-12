@@ -1,0 +1,31 @@
+import cv2
+import glob
+
+## Importaint to not that we need a folder to save all the images we take 
+## The folder is names "unstitchedImages"
+## this grabs every .jpg image 
+image_dir = glob.glob("unstitchedImages/*.jpg")
+images = []
+
+#this takes all the images in image_dir and has open CV read and append them to images
+for image in image_dir:
+    img = cv2.imread(image)
+    images.append(img)
+    cv2.waitKey(0)
+
+
+
+stitcher = cv2.Stitcher.create(cv2.Stitcher_PANORAMA)
+
+status, panorama = stitcher.stitch(images)
+
+## This will show the created panorama but if something is wrong you will get an error code
+if status == cv2.Stitcher_OK:
+    cv2.imshow('Panorama', panorama)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+else:
+    print("Error during stitching:", status)
+## This will save the panorama as a jpg
+if status == cv2.Stitcher_OK:
+    cv2.imwrite('panorama.jpg', panorama)
