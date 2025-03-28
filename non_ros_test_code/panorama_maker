@@ -1,31 +1,70 @@
 import cv2
+import numpy as np
 import glob
+import concurrent.futures
 
-## Importaint to not that we need a folder to save all the images we take 
-## The folder is names "unstitchedImages"
-## this grabs every .jpg image 
-image_dir = glob.glob("unstitchedImages/*.jpg")
+def load_and_preprocess(image_path, resize_dim=(800, 600)):
+    img = cv2.imread(image_path)
+    if img is None:
+        print(f"Warning: Could not load {image_path}. Skipping...")
+        return None
+
+    img = cv2.resize(img, resize_dim, interpolation=cv2.INTER_AREA)
+    
+    # Normalize brightness for better stitching
+    lab = cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
+    l, a, b = cv2.split(lab)
+    l = cv2.equalizeHist(l)
+    img = cv2.cvtColor(cv2.merge((l, a, b)), cv2.COLOR_LAB2BGR)
+
+    return img
+
+# Load all images
+image_paths = sorted(glob.glob("unstitchedImages/*.jpg"))  # Ensure correct order
 images = []
 
-#this takes all the images in image_dir and has open CV read and append them to images
-for image in image_dir:
-    img = cv2.imread(image)
-    images.append(img)
-    cv2.waitKey(0)
+with concurrent.futures.ThreadPoolExecutor() as executor:
+    results = executor.map(load_and_preprocess, image_paths)
+    images = [img for img in results if img is not None]
 
+print(f"Loaded {len(images)} images.")
 
+if len(images) < 2:
+    print("Error: Not enough images to stitch.")
+    exit()
 
-stitcher = cv2.Stitcher.create(cv2.Stitcher_PANORAMA)
+# Try to stitch all images first
+stitcher = cv2.Stitcher_create(cv2.Stitcher_SCANS)  # Alternative mode
+stitcher.setPanoConfidenceThresh(0.6)
 
-status, panorama = stitcher.stitch(images)
+status, stitched = stitcher.stitch(images)
 
-## This will show the created panorama but if something is wrong you will get an error code
-if status == cv2.Stitcher_OK:
-    cv2.imshow('Panorama', panorama)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-else:
-    print("Error during stitching:", status)
-## This will save the panorama as a jpg
-if status == cv2.Stitcher_OK:
-    cv2.imwrite('panorama.jpg', panorama)
+if status != cv2.Stitcher_OK:
+    print(f"Stitching failed: {status}. Attempting batch stitching...")
+    stitched = None
+    batch_size = 5  # Process smaller groups
+
+    for i in range(0, len(images), batch_size):
+        batch = images[i:i + batch_size]
+
+        if stitched is not None:
+            batch.insert(0, stitched)  # Force overlap with last stitched result
+
+        print(f"Stitching batch {i // batch_size + 1}...")
+        status, stitched = stitcher.stitch(batch)
+
+        if status != cv2.Stitcher_OK:
+            print(f"Error during stitching batch {i // batch_size + 1}: {status}")
+            exit()
+
+# Crop black edges
+gray = cv2.cvtColor(stitched, cv2.COLOR_BGR2GRAY)
+_, thresh = cv2.threshold(gray, 1, 255, cv2.THRESH_BINARY)
+contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+x, y, w, h = cv2.boundingRect(contours[0])
+stitched = stitched[y:y+h, x:x+w]
+
+cv2.imwrite("seamless_panorama_optimized.jpg", stitched)
+print("Final panorama saved as 'seamless_panorama_optimized.jpg'.")
+cv2.waitKey(0)
+cv2.destroyAllWindows()
