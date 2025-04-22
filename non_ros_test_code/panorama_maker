@@ -1,70 +1,52 @@
-import cv2
-import numpy as np
 import glob
-import concurrent.futures
+import cv2
+from stitching import Stitcher
 
-def load_and_preprocess(image_path, resize_dim=(800, 600)):
-    img = cv2.imread(image_path)
-    if img is None:
-        print(f"Warning: Could not load {image_path}. Skipping...")
-        return None
+def resize_img(orig_img, width = None, height = None, interp=cv2.INTER_LINEAR):
+    (h, w) = orig_img.shape[:2]
 
-    img = cv2.resize(img, resize_dim, interpolation=cv2.INTER_AREA)
-    
-    # Normalize brightness for better stitching
-    lab = cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
-    l, a, b = cv2.split(lab)
-    l = cv2.equalizeHist(l)
-    img = cv2.cvtColor(cv2.merge((l, a, b)), cv2.COLOR_LAB2BGR)
+    if width is None and height is None:
+        # i.e. if neither width and height are given
+        return orig_img
+    elif width is None and height is not None:
+        # i.e. if height is given
+        ratio = height / float(h)
+        resized_dim = (int(w * ratio), height)
+    elif height is None and width is not None:
+        # i.e. if width is given
+        ratio = width / float(w)
+        resized_dim = (width, int(h * height))
+    else:
+        # i.e. if neither width and height are given
+        resized_dim = (width, height)
 
-    return img
+    return cv2.resize(orig_img, resized_dim, interpolation=interp)
 
-# Load all images
-image_paths = sorted(glob.glob("unstitchedImages/*.jpg"))  # Ensure correct order
-images = []
+def main():
+    UNSTITCHED_IMAGES_FOLDER = "unstitchedImages/*.jpg"
+    DO_STITCH_VERBOSE = False
+    VERBOSE_OUTPUT_DIR = "stitcher_brisk_050"
 
-with concurrent.futures.ThreadPoolExecutor() as executor:
-    results = executor.map(load_and_preprocess, image_paths)
-    images = [img for img in results if img is not None]
+    img_paths = glob.glob(UNSTITCHED_IMAGES_FOLDER)
 
-print(f"Loaded {len(images)} images.")
+    # Load images into memory
+    all_imgs = []
+    for path in img_paths:
+        cv_img = cv2.imread(path)
+        cv_resize_img = resize_img(cv_img, height = 600)
+        all_imgs += [cv_resize_img]
 
-if len(images) < 2:
-    print("Error: Not enough images to stitch.")
-    exit()
+    # Create panorama stitching object
+    stitcher = Stitcher(
+        #py detector="sift",
+        # confidence_threshold=0.5,
+    )
 
-# Try to stitch all images first
-stitcher = cv2.Stitcher_create(cv2.Stitcher_SCANS)  # Alternative mode
-stitcher.setPanoConfidenceThresh(0.6)
+    # Create panorama
+    if DO_STITCH_VERBOSE:
+        panorama = stitcher.stitch_verbose(all_imgs, verbose_dir=VERBOSE_OUTPUT_DIR)
+    else:
+        panorama = stitcher.stitch(all_imgs)
 
-status, stitched = stitcher.stitch(images)
-
-if status != cv2.Stitcher_OK:
-    print(f"Stitching failed: {status}. Attempting batch stitching...")
-    stitched = None
-    batch_size = 5  # Process smaller groups
-
-    for i in range(0, len(images), batch_size):
-        batch = images[i:i + batch_size]
-
-        if stitched is not None:
-            batch.insert(0, stitched)  # Force overlap with last stitched result
-
-        print(f"Stitching batch {i // batch_size + 1}...")
-        status, stitched = stitcher.stitch(batch)
-
-        if status != cv2.Stitcher_OK:
-            print(f"Error during stitching batch {i // batch_size + 1}: {status}")
-            exit()
-
-# Crop black edges
-gray = cv2.cvtColor(stitched, cv2.COLOR_BGR2GRAY)
-_, thresh = cv2.threshold(gray, 1, 255, cv2.THRESH_BINARY)
-contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-x, y, w, h = cv2.boundingRect(contours[0])
-stitched = stitched[y:y+h, x:x+w]
-
-cv2.imwrite("seamless_panorama_optimized.jpg", stitched)
-print("Final panorama saved as 'seamless_panorama_optimized.jpg'.")
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+    # Save panorama to disk
+    cv2.imwrite("panorama.jpg", panorama)
